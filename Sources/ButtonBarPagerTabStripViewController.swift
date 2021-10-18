@@ -271,7 +271,7 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
 
     @objc open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
         guard let cellWidthValue = cachedCellWidths?[indexPath.row] else {
-            fatalError("cachedCellWidths for \(indexPath.row) must not be nil")
+            return CGSize(width: collectionView.frame.size.width, height: collectionView.frame.size.height)
         }
         return CGSize(width: cellWidthValue, height: collectionView.frame.size.height)
     }
@@ -307,7 +307,7 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
 
     open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? ButtonBarViewCell else {
-            fatalError("UICollectionViewCell should be or extend from ButtonBarViewCell")
+            return UICollectionViewCell()
         }
 
         collectionViewDidLoad = true
