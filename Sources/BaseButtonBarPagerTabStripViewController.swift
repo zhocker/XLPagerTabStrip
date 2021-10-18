@@ -197,7 +197,7 @@ open class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollect
 
     @objc open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
         guard let cellWidthValue = cachedCellWidths?[indexPath.row] else {
-            fatalError("cachedCellWidths for \(indexPath.row) must not be nil")
+            return CGSize(width: collectionView.frame.size.width, height: collectionView.frame.size.height)
         }
         return CGSize(width: cellWidthValue, height: collectionView.frame.size.height)
     }
@@ -230,7 +230,7 @@ open class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollect
 
     open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? ButtonBarCellType else {
-            fatalError("UICollectionViewCell should be or extend from ButtonBarViewCell")
+            return UICollectionViewCell()
         }
         let childController = viewControllers[indexPath.item] as! IndicatorInfoProvider // swiftlint:disable:this force_cast
         let indicatorInfo = childController.indicatorInfo(for: self)
